@@ -76,7 +76,9 @@ void main(void)
   Clock_Init();                       //系统时钟设置
   UART_Init();                        //串口设置初始化
   _EINT();                            //开中断
+  P6DIR=0xff;
   while(1)                            //无限循环
     {
+      P6OUT=(P3IN & BIT5)+(~BIT5);
     }
 }
