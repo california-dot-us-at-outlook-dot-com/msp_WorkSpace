@@ -1,7 +1,7 @@
 ******************************************************************************
                   MSP430 Linker PC v18.1.2                     
 ******************************************************************************
->> Linked Sat Oct 13 17:25:12 2018
+>> Linked Sat Oct 20 11:31:54 2018
 
 OUTPUT FILE NAME:   <spi_wbm_03_s.out>
 ENTRY POINT SYMBOL: "_c_int00_noinit_noargs"  address: 000011c2
@@ -17,7 +17,7 @@ MEMORY CONFIGURATION
   RAM                   00000200   00000800  00000050  000007b0  RWIX
   INFOB                 00001000   00000080  00000000  00000080  RWIX
   INFOA                 00001080   00000080  00000000  00000080  RWIX
-  FLASH                 00001100   0000eee0  00000104  0000eddc  RWIX
+  FLASH                 00001100   0000eee0  00000116  0000edca  RWIX
   INT00                 0000ffe0   00000002  00000002  00000000  RWIX
   INT01                 0000ffe2   00000002  00000002  00000000  RWIX
   INT02                 0000ffe4   00000002  00000002  00000000  RWIX
@@ -45,16 +45,17 @@ section   page    origin      length       input sections
                   000009b0    00000002     rts430_eabi.lib : boot.c.obj (.stack)
                   000009b2    0000004e     --HOLE--
 
-.text      0    00001100    00000104     
-                  00001100    00000062     main.obj (.text:read_write)
-                  00001162    00000032     main.obj (.text:main)
-                  00001194    0000002e     main.obj (.text:Clock_Init)
+.text      0    00001100    00000116     
+                  00001100    0000006a     main.obj (.text:read_write)
+                  0000116a    0000002e     main.obj (.text:Clock_Init)
+                  00001198    0000002a     main.obj (.text:main)
                   000011c2    00000014     rts430_eabi.lib : boot.c.obj (.text:_c_int00_noinit_noargs)
                   000011d6    00000012     main.obj (.text:Miso)
-                  000011e8    0000000a     main.obj (.text:Mosi)
-                  000011f2    00000008     rts430_eabi.lib : isr_trap.asm.obj (.text:_isr:__TI_ISR_TRAP)
-                  000011fa    00000006                     : exit.c.obj (.text:abort)
-                  00001200    00000004                     : pre_init.c.obj (.text:_system_pre_init)
+                  000011e8    00000012     main.obj (.text:init_s)
+                  000011fa    0000000a     main.obj (.text:Mosi)
+                  00001204    00000008     rts430_eabi.lib : isr_trap.asm.obj (.text:_isr:__TI_ISR_TRAP)
+                  0000120c    00000006                     : exit.c.obj (.text:abort)
+                  00001212    00000004                     : pre_init.c.obj (.text:_system_pre_init)
 
 .cinit     0    00001100    00000000     UNINITIALIZED
 
@@ -117,9 +118,9 @@ MODULE SUMMARY
        Module             code   ro data   rw data
        ------             ----   -------   -------
     .\
-       main.obj           222    0         0      
+       main.obj           240    0         0      
     +--+------------------+------+---------+---------+
-       Total:             222    0         0      
+       Total:             240    0         0      
                                                   
     C:\ti\ccsv8\tools\compiler\ti-cgt-msp430_18.1.2.LTS\lib\rts430_eabi.lib
        boot.c.obj         20     2         0      
@@ -146,7 +147,7 @@ MODULE SUMMARY
                                                   
        Stack:             0      0         80     
     +--+------------------+------+---------+---------+
-       Grand Total:       260    32        80     
+       Grand Total:       278    32        80     
 
 
 GLOBAL SYMBOLS: SORTED ALPHABETICALLY BY Name 
@@ -192,11 +193,11 @@ address   name
 00000152  ADC12MEM9             
 00000057  BCSCTL1               
 00000058  BCSCTL2               
-000011fa  C$$EXIT               
+0000120c  C$$EXIT               
 00000059  CACTL1                
 0000005a  CACTL2                
 0000005b  CAPD                  
-00001194  Clock_Init            
+0000116a  Clock_Init            
 000001c0  DAC12_0CTL            
 000001c8  DAC12_0DAT            
 000001c2  DAC12_1CTL            
@@ -243,7 +244,7 @@ address   name
 00000130  MPY                   
 00000132  MPYS                  
 000011d6  Miso                  
-000011e8  Mosi                  
+000011fa  Mosi                  
 00000138  OP2                   
 00000022  P1DIR                 
 00000025  P1IE                  
@@ -324,7 +325,7 @@ address   name
 00000120  WDTCTL                
 00000a00  __STACK_END           
 00000050  __STACK_SIZE          
-000011f2  __TI_ISR_TRAP         
+00001204  __TI_ISR_TRAP         
 0000ffe0  __TI_int00            
 0000ffe2  __TI_int01            
 0000ffe4  __TI_int02            
@@ -347,9 +348,10 @@ ffffffff  __c_args__
 000011c2  _c_int00_noinit_noargs
 0000fffe  _reset_vector         
 000009b0  _stack                
-00001200  _system_pre_init      
-000011fa  abort                 
-00001162  main                  
+00001212  _system_pre_init      
+0000120c  abort                 
+000011e8  init_s                
+00001198  main                  
 00001100  read_write            
 
 
@@ -526,15 +528,16 @@ address   name
 000009b0  _stack                
 00000a00  __STACK_END           
 00001100  read_write            
-00001162  main                  
-00001194  Clock_Init            
+0000116a  Clock_Init            
+00001198  main                  
 000011c2  _c_int00_noinit_noargs
 000011d6  Miso                  
-000011e8  Mosi                  
-000011f2  __TI_ISR_TRAP         
-000011fa  C$$EXIT               
-000011fa  abort                 
-00001200  _system_pre_init      
+000011e8  init_s                
+000011fa  Mosi                  
+00001204  __TI_ISR_TRAP         
+0000120c  C$$EXIT               
+0000120c  abort                 
+00001212  _system_pre_init      
 0000ffe0  __TI_int00            
 0000ffe2  __TI_int01            
 0000ffe4  __TI_int02            
@@ -556,4 +559,4 @@ ffffffff  __TI_prof_data_size
 ffffffff  __TI_prof_data_start  
 ffffffff  __c_args__            
 
-[198 symbols]
+[199 symbols]

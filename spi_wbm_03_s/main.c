@@ -18,7 +18,7 @@
 void init_s(){
     portdir |= miso;
     portdir &= (~mosi);
-    portdir &= ~scl;
+    portdir &= (~scl);
     portdir &=(~ss);
 }
 
@@ -43,6 +43,9 @@ unsigned char read_write(unsigned char dat){
     unsigned char tmp=0xff;
     unsigned char complete=0;
     unsigned char recv=0;
+    unsigned char Dat=dat;
+    Miso(Dat);
+    Dat<<=1;
     while(!(portin&ss));
     if(ss){
         for(i=0;i<16;i++){
@@ -59,8 +62,13 @@ unsigned char read_write(unsigned char dat){
                     recv|=(Mosi());
                 }
 
-                Miso(dat);
-                dat<<=1;
+                //Miso(Dat);
+                //Dat<<=1;
+            }
+            else{
+
+                Miso(Dat);
+                Dat<<=1;
             }
         }
     }
@@ -88,14 +96,15 @@ void main(void)
 {
 	WDTCTL = WDTPW | WDTHOLD;	// stop watchdog timer
 	Clock_Init();
+	init_s();
 	unsigned char a=0;
 	unsigned char tmpLed=0;
 	P6DIR=0xff;
 	P6OUT=0xff;
 	//delay_ms();
 	while(1){
-	    tmpLed=~(read_write(0x00));
+	    tmpLed=~(read_write(0xb9));
 	    P6OUT=tmpLed;
-	    delay_ms(255);
+	    delay_us(2);
 	}
 }

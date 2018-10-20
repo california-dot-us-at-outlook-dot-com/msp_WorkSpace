@@ -60,20 +60,21 @@ unsigned char Miso(){
 unsigned char write_read(unsigned char dat){
     unsigned char i=0;
     unsigned char recv=0;
-    Ss(1);
+    //Ss(1);
     for(i=0;i<8;i++){
         recv<<=1;
         Scl(0);
         Mosi(dat);
         dat<<=1;
         Scl(1);
-        delay_us(2);
+        Ss(1);
+        delay_us(5);
         Scl(0);
-        delay_us(2);
+        delay_us(5);
         recv|=Miso();
     }
     Ss(0);
-    delay_us(2);
+    delay_us(5);
     return recv;
 
 }
@@ -110,13 +111,13 @@ int main(void)
 	int j=0;
 	init_m();
 	for(i=0;i<16;i++){
-	    delay_ms(255);
+	    delay_ms(25);
 	}
 	while(1){
-	    write_read(j);
+	    write_read(0x65);
 	    j++;
 	    for(i=0;i<4;i++){
-	            delay_ms(255);
+	            delay_ms(2);
 	    }
 	}
 }

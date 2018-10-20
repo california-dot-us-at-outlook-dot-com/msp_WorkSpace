@@ -1,10 +1,10 @@
 ******************************************************************************
                   MSP430 Linker PC v18.1.2                     
 ******************************************************************************
->> Linked Sat Oct 13 19:05:53 2018
+>> Linked Sat Oct 20 11:36:48 2018
 
 OUTPUT FILE NAME:   <spi_wbm_03_m.out>
-ENTRY POINT SYMBOL: "_c_int00_noinit_noargs"  address: 0000121e
+ENTRY POINT SYMBOL: "_c_int00_noinit_noargs"  address: 0000120a
 
 
 MEMORY CONFIGURATION
@@ -17,7 +17,7 @@ MEMORY CONFIGURATION
   RAM                   00000200   00000800  00000050  000007b0  RWIX
   INFOB                 00001000   00000080  00000000  00000080  RWIX
   INFOA                 00001080   00000080  00000000  00000080  RWIX
-  FLASH                 00001100   0000eee0  00000182  0000ed5e  RWIX
+  FLASH                 00001100   0000eee0  0000016e  0000ed72  RWIX
   INT00                 0000ffe0   00000002  00000002  00000000  RWIX
   INT01                 0000ffe2   00000002  00000002  00000000  RWIX
   INT02                 0000ffe4   00000002  00000002  00000000  RWIX
@@ -45,19 +45,19 @@ section   page    origin      length       input sections
                   000009b0    00000002     rts430_eabi.lib : boot.c.obj (.stack)
                   000009b2    0000004e     --HOLE--
 
-.text      0    00001100    00000182     
-                  00001100    0000006e     main.obj (.text:main)
-                  0000116e    00000066     main.obj (.text:write_read)
-                  000011d4    0000002e     main.obj (.text:Clock_Init)
-                  00001202    0000001c     main.obj (.text:init_m)
-                  0000121e    00000014     rts430_eabi.lib : boot.c.obj (.text:_c_int00_noinit_noargs)
-                  00001232    00000012     main.obj (.text:Mosi)
-                  00001244    00000010     main.obj (.text:Scl)
-                  00001254    00000010     main.obj (.text:Ss)
-                  00001264    0000000c     main.obj (.text:Miso)
-                  00001270    00000008     rts430_eabi.lib : isr_trap.asm.obj (.text:_isr:__TI_ISR_TRAP)
-                  00001278    00000006                     : exit.c.obj (.text:abort)
-                  0000127e    00000004                     : pre_init.c.obj (.text:_system_pre_init)
+.text      0    00001100    0000016e     
+                  00001100    00000064     main.obj (.text:write_read)
+                  00001164    0000005c     main.obj (.text:main)
+                  000011c0    0000002e     main.obj (.text:Clock_Init)
+                  000011ee    0000001c     main.obj (.text:init_m)
+                  0000120a    00000014     rts430_eabi.lib : boot.c.obj (.text:_c_int00_noinit_noargs)
+                  0000121e    00000012     main.obj (.text:Mosi)
+                  00001230    00000010     main.obj (.text:Scl)
+                  00001240    00000010     main.obj (.text:Ss)
+                  00001250    0000000c     main.obj (.text:Miso)
+                  0000125c    00000008     rts430_eabi.lib : isr_trap.asm.obj (.text:_isr:__TI_ISR_TRAP)
+                  00001264    00000006                     : exit.c.obj (.text:abort)
+                  0000126a    00000004                     : pre_init.c.obj (.text:_system_pre_init)
 
 .cinit     0    00001100    00000000     UNINITIALIZED
 
@@ -120,9 +120,9 @@ MODULE SUMMARY
        Module             code   ro data   rw data
        ------             ----   -------   -------
     .\
-       main.obj           348    0         0      
+       main.obj           328    0         0      
     +--+------------------+------+---------+---------+
-       Total:             348    0         0      
+       Total:             328    0         0      
                                                   
     C:\ti\ccsv8\tools\compiler\ti-cgt-msp430_18.1.2.LTS\lib\rts430_eabi.lib
        boot.c.obj         20     2         0      
@@ -149,7 +149,7 @@ MODULE SUMMARY
                                                   
        Stack:             0      0         80     
     +--+------------------+------+---------+---------+
-       Grand Total:       386    32        80     
+       Grand Total:       366    32        80     
 
 
 GLOBAL SYMBOLS: SORTED ALPHABETICALLY BY Name 
@@ -195,11 +195,11 @@ address   name
 00000152  ADC12MEM9             
 00000057  BCSCTL1               
 00000058  BCSCTL2               
-00001278  C$$EXIT               
+00001264  C$$EXIT               
 00000059  CACTL1                
 0000005a  CACTL2                
 0000005b  CAPD                  
-000011d4  Clock_Init            
+000011c0  Clock_Init            
 000001c0  DAC12_0CTL            
 000001c8  DAC12_0DAT            
 000001c2  DAC12_1CTL            
@@ -245,8 +245,8 @@ address   name
 00000005  ME2                   
 00000130  MPY                   
 00000132  MPYS                  
-00001264  Miso                  
-00001232  Mosi                  
+00001250  Miso                  
+0000121e  Mosi                  
 00000138  OP2                   
 00000022  P1DIR                 
 00000025  P1IE                  
@@ -282,8 +282,8 @@ address   name
 0000013a  RESLO                 
 0000013e  SUMEXT                
 00000055  SVSCTL                
-00001244  Scl                   
-00001254  Ss                    
+00001230  Scl                   
+00001240  Ss                    
 00000172  TACCR0                
 00000174  TACCR1                
 00000176  TACCR2                
@@ -329,7 +329,7 @@ address   name
 00000120  WDTCTL                
 00000a00  __STACK_END           
 00000050  __STACK_SIZE          
-00001270  __TI_ISR_TRAP         
+0000125c  __TI_ISR_TRAP         
 0000ffe0  __TI_int00            
 0000ffe2  __TI_int01            
 0000ffe4  __TI_int02            
@@ -349,14 +349,14 @@ ffffffff  __TI_pprof_out_hndl
 ffffffff  __TI_prof_data_size   
 ffffffff  __TI_prof_data_start  
 ffffffff  __c_args__            
-0000121e  _c_int00_noinit_noargs
+0000120a  _c_int00_noinit_noargs
 0000fffe  _reset_vector         
 000009b0  _stack                
-0000127e  _system_pre_init      
-00001278  abort                 
-00001202  init_m                
-00001100  main                  
-0000116e  write_read            
+0000126a  _system_pre_init      
+00001264  abort                 
+000011ee  init_m                
+00001164  main                  
+00001100  write_read            
 
 
 GLOBAL SYMBOLS: SORTED BY Symbol Address 
@@ -531,19 +531,19 @@ address   name
 000001f6  DMA2SZ                
 000009b0  _stack                
 00000a00  __STACK_END           
-00001100  main                  
-0000116e  write_read            
-000011d4  Clock_Init            
-00001202  init_m                
-0000121e  _c_int00_noinit_noargs
-00001232  Mosi                  
-00001244  Scl                   
-00001254  Ss                    
-00001264  Miso                  
-00001270  __TI_ISR_TRAP         
-00001278  C$$EXIT               
-00001278  abort                 
-0000127e  _system_pre_init      
+00001100  write_read            
+00001164  main                  
+000011c0  Clock_Init            
+000011ee  init_m                
+0000120a  _c_int00_noinit_noargs
+0000121e  Mosi                  
+00001230  Scl                   
+00001240  Ss                    
+00001250  Miso                  
+0000125c  __TI_ISR_TRAP         
+00001264  C$$EXIT               
+00001264  abort                 
+0000126a  _system_pre_init      
 0000ffe0  __TI_int00            
 0000ffe2  __TI_int01            
 0000ffe4  __TI_int02            
