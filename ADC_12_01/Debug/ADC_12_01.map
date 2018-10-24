@@ -1,10 +1,10 @@
 ******************************************************************************
                   MSP430 Linker PC v18.1.2                     
 ******************************************************************************
->> Linked Wed Sep 26 16:01:32 2018
+>> Linked Wed Oct 24 21:56:11 2018
 
 OUTPUT FILE NAME:   <ADC_12_01.out>
-ENTRY POINT SYMBOL: "_c_int00_noinit_noargs"  address: 00001312
+ENTRY POINT SYMBOL: "_c_int00_noinit_noargs"  address: 00001332
 
 
 MEMORY CONFIGURATION
@@ -17,7 +17,7 @@ MEMORY CONFIGURATION
   RAM                   00000200   00000800  00000050  000007b0  RWIX
   INFOB                 00001000   00000080  00000000  00000080  RWIX
   INFOA                 00001080   00000080  00000000  00000080  RWIX
-  FLASH                 00001100   0000eee0  00000238  0000eca8  RWIX
+  FLASH                 00001100   0000eee0  00000258  0000ec88  RWIX
   INT00                 0000ffe0   00000002  00000002  00000000  RWIX
   INT01                 0000ffe2   00000002  00000002  00000000  RWIX
   INT02                 0000ffe4   00000002  00000002  00000000  RWIX
@@ -45,17 +45,17 @@ section   page    origin      length       input sections
                   000009b0    00000002     rts430_eabi.lib : boot.c.obj (.stack)
                   000009b2    0000004e     --HOLE--
 
-.text      0    00001100    00000238     
-                  00001100    000000e2     maina.obj (.text:main)
-                  000011e2    00000062     maina.obj (.text:init)
-                  00001244    0000004c     rts430_eabi.lib : lsr16.asm.obj (.text)
-                  00001290    0000002e     maina.obj (.text:Clock_Init)
-                  000012be    0000002a     maina.obj (.text:wc)
-                  000012e8    0000002a     maina.obj (.text:wd)
-                  00001312    00000014     rts430_eabi.lib : boot.c.obj (.text:_c_int00_noinit_noargs)
-                  00001326    00000008                     : isr_trap.asm.obj (.text:_isr:__TI_ISR_TRAP)
-                  0000132e    00000006                     : exit.c.obj (.text:abort)
-                  00001334    00000004                     : pre_init.c.obj (.text:_system_pre_init)
+.text      0    00001100    00000258     
+                  00001100    00000102     maina.obj (.text:main)
+                  00001202    00000062     maina.obj (.text:init)
+                  00001264    0000004c     rts430_eabi.lib : lsr16.asm.obj (.text)
+                  000012b0    0000002e     maina.obj (.text:Clock_Init)
+                  000012de    0000002a     maina.obj (.text:wc)
+                  00001308    0000002a     maina.obj (.text:wd)
+                  00001332    00000014     rts430_eabi.lib : boot.c.obj (.text:_c_int00_noinit_noargs)
+                  00001346    00000008                     : isr_trap.asm.obj (.text:_isr:__TI_ISR_TRAP)
+                  0000134e    00000006                     : exit.c.obj (.text:abort)
+                  00001354    00000004                     : pre_init.c.obj (.text:_system_pre_init)
 
 .cinit     0    00001100    00000000     UNINITIALIZED
 
@@ -118,9 +118,9 @@ MODULE SUMMARY
        Module             code   ro data   rw data
        ------             ----   -------   -------
     .\
-       maina.obj          454    0         0      
+       maina.obj          486    0         0      
     +--+------------------+------+---------+---------+
-       Total:             454    0         0      
+       Total:             486    0         0      
                                                   
     C:\ti\ccsv8\tools\compiler\ti-cgt-msp430_18.1.2.LTS\lib\rts430_eabi.lib
        lsr16.asm.obj      76     0         0      
@@ -148,7 +148,7 @@ MODULE SUMMARY
                                                   
        Stack:             0      0         80     
     +--+------------------+------+---------+---------+
-       Grand Total:       568    32        80     
+       Grand Total:       600    32        80     
 
 
 GLOBAL SYMBOLS: SORTED ALPHABETICALLY BY Name 
@@ -194,11 +194,11 @@ address   name
 00000152  ADC12MEM9             
 00000057  BCSCTL1               
 00000058  BCSCTL2               
-0000132e  C$$EXIT               
+0000134e  C$$EXIT               
 00000059  CACTL1                
 0000005a  CACTL2                
 0000005b  CAPD                  
-00001290  Clock_Init            
+000012b0  Clock_Init            
 000001c0  DAC12_0CTL            
 000001c8  DAC12_0DAT            
 000001c2  DAC12_1CTL            
@@ -324,7 +324,7 @@ address   name
 00000120  WDTCTL                
 00000a00  __STACK_END           
 00000050  __STACK_SIZE          
-00001326  __TI_ISR_TRAP         
+00001346  __TI_ISR_TRAP         
 0000ffe0  __TI_int00            
 0000ffe2  __TI_int01            
 0000ffe4  __TI_int02            
@@ -344,31 +344,31 @@ ffffffff  __TI_pprof_out_hndl
 ffffffff  __TI_prof_data_size   
 ffffffff  __TI_prof_data_start  
 ffffffff  __c_args__            
-00001244  __mspabi_srli         
-0000128a  __mspabi_srli_1       
-00001266  __mspabi_srli_10      
-00001262  __mspabi_srli_11      
-0000125e  __mspabi_srli_12      
-0000125a  __mspabi_srli_13      
-00001256  __mspabi_srli_14      
-00001252  __mspabi_srli_15      
-00001286  __mspabi_srli_2       
-00001282  __mspabi_srli_3       
-0000127e  __mspabi_srli_4       
-0000127a  __mspabi_srli_5       
-00001276  __mspabi_srli_6       
-00001272  __mspabi_srli_7       
-0000126e  __mspabi_srli_8       
-0000126a  __mspabi_srli_9       
-00001312  _c_int00_noinit_noargs
+00001264  __mspabi_srli         
+000012aa  __mspabi_srli_1       
+00001286  __mspabi_srli_10      
+00001282  __mspabi_srli_11      
+0000127e  __mspabi_srli_12      
+0000127a  __mspabi_srli_13      
+00001276  __mspabi_srli_14      
+00001272  __mspabi_srli_15      
+000012a6  __mspabi_srli_2       
+000012a2  __mspabi_srli_3       
+0000129e  __mspabi_srli_4       
+0000129a  __mspabi_srli_5       
+00001296  __mspabi_srli_6       
+00001292  __mspabi_srli_7       
+0000128e  __mspabi_srli_8       
+0000128a  __mspabi_srli_9       
+00001332  _c_int00_noinit_noargs
 0000fffe  _reset_vector         
 000009b0  _stack                
-00001334  _system_pre_init      
-0000132e  abort                 
-000011e2  init                  
+00001354  _system_pre_init      
+0000134e  abort                 
+00001202  init                  
 00001100  main                  
-000012be  wc                    
-000012e8  wd                    
+000012de  wc                    
+00001308  wd                    
 
 
 GLOBAL SYMBOLS: SORTED BY Symbol Address 
@@ -544,31 +544,31 @@ address   name
 000009b0  _stack                
 00000a00  __STACK_END           
 00001100  main                  
-000011e2  init                  
-00001244  __mspabi_srli         
-00001252  __mspabi_srli_15      
-00001256  __mspabi_srli_14      
-0000125a  __mspabi_srli_13      
-0000125e  __mspabi_srli_12      
-00001262  __mspabi_srli_11      
-00001266  __mspabi_srli_10      
-0000126a  __mspabi_srli_9       
-0000126e  __mspabi_srli_8       
-00001272  __mspabi_srli_7       
-00001276  __mspabi_srli_6       
-0000127a  __mspabi_srli_5       
-0000127e  __mspabi_srli_4       
-00001282  __mspabi_srli_3       
-00001286  __mspabi_srli_2       
-0000128a  __mspabi_srli_1       
-00001290  Clock_Init            
-000012be  wc                    
-000012e8  wd                    
-00001312  _c_int00_noinit_noargs
-00001326  __TI_ISR_TRAP         
-0000132e  C$$EXIT               
-0000132e  abort                 
-00001334  _system_pre_init      
+00001202  init                  
+00001264  __mspabi_srli         
+00001272  __mspabi_srli_15      
+00001276  __mspabi_srli_14      
+0000127a  __mspabi_srli_13      
+0000127e  __mspabi_srli_12      
+00001282  __mspabi_srli_11      
+00001286  __mspabi_srli_10      
+0000128a  __mspabi_srli_9       
+0000128e  __mspabi_srli_8       
+00001292  __mspabi_srli_7       
+00001296  __mspabi_srli_6       
+0000129a  __mspabi_srli_5       
+0000129e  __mspabi_srli_4       
+000012a2  __mspabi_srli_3       
+000012a6  __mspabi_srli_2       
+000012aa  __mspabi_srli_1       
+000012b0  Clock_Init            
+000012de  wc                    
+00001308  wd                    
+00001332  _c_int00_noinit_noargs
+00001346  __TI_ISR_TRAP         
+0000134e  C$$EXIT               
+0000134e  abort                 
+00001354  _system_pre_init      
 0000ffe0  __TI_int00            
 0000ffe2  __TI_int01            
 0000ffe4  __TI_int02            

@@ -47,13 +47,16 @@ void main(){
     P5SEL=0x00;
     P5DIR=0xff;
     init();
-    P6SEL=0x01;
-    P6DIR=0xFE;
+    //P6SEL=0x01;
+    //P6DIR=0xFE;
+    P6SEL=0xff;
+    P6DIR=0x00;
     P6OUT=0x00;
     ADC12CTL0=ADC12ON+REFON+REF2_5V;
 
-    ADC12CTL1=SHP;
+    ADC12CTL1=SHP+CSTARTADD_1;//P6.1
     ADC12MCTL0=SREF_1;
+    ADC12MCTL1|=INCH_1+EOS;//P6.1
     for(i=0xFFF;i>0;i--);
     ADC12CTL0 |= ENC;
 
@@ -67,8 +70,8 @@ void main(){
 
     while(1){
         ADC12CTL0 |= ADC12SC;
-        while((ADC12IFG & BIT0)==0);
-        dat=(long)ADC12MEM0;
+        while((ADC12IFG & BIT1)==0);//P6.1
+        dat=(long)ADC12MEM1;//P6.1
         P6OUT=~dat;
         for(i=0;i<12;i++){
             tmp=(dat>>i)%2;
@@ -86,7 +89,7 @@ void main(){
             }
 //            delay_ms(500);
         }
-        //delay_ms(40);
+        delay_ms(200);
     }
 
 }
