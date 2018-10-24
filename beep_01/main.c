@@ -20,7 +20,7 @@ void Clock_Inita()
   IFG1&=~OFIFG;
 }
 
-unsigned int list[7]={0,880,988,1109,1175,1319,1480,1661};
+unsigned int list[13]={1024,440,494,554,587,659,740,831,880,988,1109,1175,1319,1480,1661};
 void one(unsigned char yin){
     unsigned int i=0;
     unsigned int j=120000/list[yin];
@@ -31,7 +31,7 @@ void one(unsigned char yin){
         for(k=0;k<j;k++){
             delay_us(1);
         }
-        if(yin){
+        if(yin-255){
             P6OUT=0xff;
         }
         for(k=0;k<j;k++){
@@ -42,14 +42,15 @@ void one(unsigned char yin){
 
 }
 
-unsigned char HLS[]={3,3,4,5,5,4,3,2,1,1,2,3,3,2,2,0,0,3,3,4,5,5,4,3,2,1,1,2,3,2,1,1};
+unsigned char HLS[]={3,3,4,5,5,4,3,2,1,1,2,3,3,2,2,255,3,3,4,5,5,4,3,2,1,1,2,3,2,1,1,255,2,2,3,1,2,3,4,3,1,2,3,4,3,2,1,2,5,255,3,3,4,5,5,4,3,4,2,1,2,3,2,1,1,0};
 //unsigned char ALS[]={6,1,3,5,3,2,3,3,3,2,3,6,7,1,3,2,1,6,5,3};
+unsigned char MLH[]={3,3,5,6,8,8,6,5,5,6,5,255,3,3,5,6,8,8,6,5,5,6,5,255,5,5,5,3,5,6,6,5,255,3,2,3,5,3,2,1,1,2,1,255,3,2,1,3,2,3,5,6,8,5,255,2,3,5,2,3,1,6,5,255,6,1,2,3,1,2,1,6,5,255,0};
 void main(void)
 {
 	WDTCTL = WDTPW | WDTHOLD;	// stop watchdog timer
 	Clock_Inita();
 	unsigned char i=0;
-	for(i=0;i<32;i++){
+	for(i=0;i<strlen(HLS);i++){
 	    one(HLS[i]);
 	}
 	
