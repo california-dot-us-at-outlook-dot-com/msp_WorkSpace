@@ -1,6 +1,9 @@
 #include <msp430f169.h>
 
-
+#define CPU_F ((double)8000000)
+#define delay_us(x) __delay_cycles((long)(CPU_F*(double)x/1000000.0))
+#define delay_ms(x) __delay_cycles((long)(CPU_F*(double)x/1000.0))
+#define uchar unsigned char
 /**
  * main.c
  */
@@ -27,6 +30,7 @@ void spi_sendByte(unsigned char dat){
     //IFG1&=~UTXIFG0;
 }
 
+/*
 void delay(void){
     unsigned int i,j;
     for(i=0;i<=500;i++){
@@ -34,7 +38,7 @@ void delay(void){
             ;
         }
     }
-}
+}*/
 
 void Clock_Init(){
     unsigned char i;
@@ -54,13 +58,19 @@ void main(void)
 {
 	WDTCTL = WDTPW | WDTHOLD;	// stop watchdog timer
 	unsigned char i;
+	P6DIR=0xff;
+	P6OUT=0x00;
 	unsigned char data[10]={9,8,7,6,5,4,3,2,1,0};
 	Clock_Init();
 	init_spi();
 	while(1){
 	    for(i=0;i<=9;i++){
-	        delay();
+	        delay_us(5);
+	        P6OUT=0xff;
+	        delay_us(5);
 	        spi_sendByte(data[i]);
+	        delay_us(5);
+	        P6OUT=0x00;
 	    }
 	}
 	
