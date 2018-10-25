@@ -65,11 +65,11 @@ void main(void)
 	init_spi();
 	while(1){
 	    for(i=0;i<=9;i++){
-	        delay_us(5);
+	        delay_us(1);
 	        P6OUT=0xff;
-	        delay_us(5);
+	        //delay_us(1);
 	        spi_sendByte(data[i]);
-	        delay_us(5);
+	        delay_us(1);
 	        P6OUT=0x00;
 	    }
 	}
