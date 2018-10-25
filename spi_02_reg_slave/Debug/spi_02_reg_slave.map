@@ -1,7 +1,7 @@
 ******************************************************************************
                   MSP430 Linker PC v18.1.2                     
 ******************************************************************************
->> Linked Thu Oct 25 15:55:34 2018
+>> Linked Thu Oct 25 16:30:41 2018
 
 OUTPUT FILE NAME:   <spi_02_reg_slave.out>
 ENTRY POINT SYMBOL: "_c_int00_noinit_noargs"  address: 00001126
@@ -17,7 +17,7 @@ MEMORY CONFIGURATION
   RAM                   00000200   00000800  00000050  000007b0  RWIX
   INFOB                 00001000   00000080  00000000  00000080  RWIX
   INFOA                 00001080   00000080  00000000  00000080  RWIX
-  FLASH                 00001100   0000eee0  0000006a  0000ee76  RWIX
+  FLASH                 00001100   0000eee0  00000070  0000ee70  RWIX
   INT00                 0000ffe0   00000002  00000002  00000000  RWIX
   INT01                 0000ffe2   00000002  00000002  00000000  RWIX
   INT02                 0000ffe4   00000002  00000002  00000000  RWIX
@@ -45,14 +45,14 @@ section   page    origin      length       input sections
                   000009b0    00000002     rts430_eabi.lib : boot.c.obj (.stack)
                   000009b2    0000004e     --HOLE--
 
-.text      0    00001100    0000006a     
+.text      0    00001100    00000070     
                   00001100    00000026     main.obj (.text:init_spi_slave)
                   00001126    00000014     rts430_eabi.lib : boot.c.obj (.text:_c_int00_noinit_noargs)
-                  0000113a    00000010     main.obj (.text:SPI0_rx)
-                  0000114a    0000000e     main.obj (.text:main)
-                  00001158    00000008     rts430_eabi.lib : isr_trap.asm.obj (.text:_isr:__TI_ISR_TRAP)
-                  00001160    00000006                     : exit.c.obj (.text:abort)
-                  00001166    00000004                     : pre_init.c.obj (.text:_system_pre_init)
+                  0000113a    00000014     main.obj (.text:main)
+                  0000114e    00000010     main.obj (.text:SPI0_rx)
+                  0000115e    00000008     rts430_eabi.lib : isr_trap.asm.obj (.text:_isr:__TI_ISR_TRAP)
+                  00001166    00000006                     : exit.c.obj (.text:abort)
+                  0000116c    00000004                     : pre_init.c.obj (.text:_system_pre_init)
 
 .cinit     0    00001100    00000000     UNINITIALIZED
 
@@ -115,9 +115,9 @@ MODULE SUMMARY
        Module             code   ro data   rw data
        ------             ----   -------   -------
     .\
-       main.obj           68     2         0      
+       main.obj           74     2         0      
     +--+------------------+------+---------+---------+
-       Total:             68     2         0      
+       Total:             74     2         0      
                                                   
     C:\ti\ccsv8\tools\compiler\ti-cgt-msp430_18.1.2.LTS\lib\rts430_eabi.lib
        boot.c.obj         20     2         0      
@@ -143,7 +143,7 @@ MODULE SUMMARY
                                                   
        Stack:             0      0         80     
     +--+------------------+------+---------+---------+
-       Grand Total:       106    32        80     
+       Grand Total:       112    32        80     
 
 
 GLOBAL SYMBOLS: SORTED ALPHABETICALLY BY Name 
@@ -189,7 +189,7 @@ address   name
 00000152  ADC12MEM9             
 00000057  BCSCTL1               
 00000058  BCSCTL2               
-00001160  C$$EXIT               
+00001166  C$$EXIT               
 00000059  CACTL1                
 0000005a  CACTL2                
 0000005b  CAPD                  
@@ -271,7 +271,7 @@ address   name
 00000037  P6SEL                 
 0000013c  RESHI                 
 0000013a  RESLO                 
-0000113a  SPI0_rx               
+0000114e  SPI0_rx               
 0000013e  SUMEXT                
 00000055  SVSCTL                
 00000172  TACCR0                
@@ -319,7 +319,7 @@ address   name
 00000120  WDTCTL                
 00000a00  __STACK_END           
 00000050  __STACK_SIZE          
-00001158  __TI_ISR_TRAP         
+0000115e  __TI_ISR_TRAP         
 0000ffe0  __TI_int00            
 0000ffe2  __TI_int01            
 0000ffe4  __TI_int02            
@@ -342,10 +342,10 @@ ffffffff  __c_args__
 00001126  _c_int00_noinit_noargs
 0000fffe  _reset_vector         
 000009b0  _stack                
-00001166  _system_pre_init      
-00001160  abort                 
+0000116c  _system_pre_init      
+00001166  abort                 
 00001100  init_spi_slave        
-0000114a  main                  
+0000113a  main                  
 
 
 GLOBAL SYMBOLS: SORTED BY Symbol Address 
@@ -522,12 +522,12 @@ address   name
 00000a00  __STACK_END           
 00001100  init_spi_slave        
 00001126  _c_int00_noinit_noargs
-0000113a  SPI0_rx               
-0000114a  main                  
-00001158  __TI_ISR_TRAP         
-00001160  C$$EXIT               
-00001160  abort                 
-00001166  _system_pre_init      
+0000113a  main                  
+0000114e  SPI0_rx               
+0000115e  __TI_ISR_TRAP         
+00001166  C$$EXIT               
+00001166  abort                 
+0000116c  _system_pre_init      
 0000ffe0  __TI_int00            
 0000ffe2  __TI_int01            
 0000ffe4  __TI_int02            

@@ -16,11 +16,12 @@ void init_spi_slave(){
 __interrupt void SPI0_rx (void){
     unsigned char data=0;
     data=U0RXBUF;
-    P6OUT=~data;
+        P6OUT=~data;
 }
 
 void main(void)
 {
+    WDTCTL = WDTPW | WDTHOLD;
     init_spi_slave();
     P6DIR=0xff;
     P6OUT=0xff;
