@@ -39,35 +39,35 @@ void Clock_Init()
 }
 unsigned char Write(unsigned char addr,unsigned char dat){
     //I2CNDAT=2;
-    I2CNDAT=0x01;
-    I2CSA=(0xd0>>1);
+    I2CNDAT=0x02;
+    //I2CSA=(0xd0>>1);
 
     U0CTL |= MST;
     I2CTCTL |= I2CSTT+I2CSTP+I2CTRX;
-    I2CNDAT=0x02;
-    P6OUT=~1;
+    //I2CNDAT=0x02;
+    //P6OUT=~1;
     while((I2CIFG&TXRDYIFG)==0);
     I2CDRB=addr;
     delay_ms(9);
     //I2CNDAT=0x01;
-    P6OUT=~2;
+    //P6OUT=~2;
     while((I2CIFG&TXRDYIFG)==0);
     I2CDRB=dat;
     delay_ms(9);
-    P6OUT=~3;
+    //P6OUT=~3;
     while((I2CTCTL&I2CSTP)==0x02);
 }
 
 void init(){
 
     P3SEL|=0x0a;
-
+    P3DIR&=~0x0a;
     U0CTL|=I2C+SYNC;
     U0CTL&=~I2CEN;
     I2CTCTL=I2CSSEL_2;
 
     //I2CNDAT=0x01;
-    //I2CSA=(0xd0>>1);
+    I2CSA=(0xd0>>1);
     U0CTL|=I2CEN;
 
 }
@@ -78,11 +78,18 @@ void main(){
     init();
     P6DIR=0xff;
     delay_ms(100);
+    Write(0x01,32);
+    unsigned char i=0;
     while(1){
         //U0CTL |= MST;                             // Master
        //   I2CTCTL = I2CSTT + I2CSTP;                // Receive, ST, SP (clears MST)
-     Write((0x02),0x03);
-        delay_ms(20);
+     //Write((0x02),0x03);
+
+        Write(0x01,i);
+        i++;
+        P6OUT=~Read(0x01);
+
+        delay_ms(2000);
     }
 
 }
