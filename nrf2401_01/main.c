@@ -1,5 +1,5 @@
 #include <msp430.h> 
-
+#include<stdlib.h>
 
 #define CPU_F ((double)8000000)
 //#define CPU_F ((double)32768)
@@ -177,7 +177,7 @@ unsigned char recv(unsigned char*rx_buf){
     unsigned char rev=0;
     unsigned char status1;
     status1=R_reg(STATUS);
-
+    rev=status1;
     if(status1&0x40){
         CE_0;
         Read_BUF(RD_RX_PLOAD,rx_buf,TX_PLOAD_WIDTH);
@@ -214,6 +214,60 @@ __interrupt void Port1_ISR(void){
     delay_ms(200);
 }
 
+//1602
+#define DataDIR         P4DIR                     //数据口方向
+#define DataPort        P4OUT                     //P4口为数据口
+//1602
+#define RS_CLR          P5OUT &= ~BIT5           //RS置低
+#define RS_SET          P5OUT |=  BIT5           //RS置高
+
+#define RW_CLR          P5OUT &= ~BIT6           //RW置低
+#define RW_SET          P5OUT |=  BIT6           //RW置高
+
+#define EN_CLR          P5OUT &= ~BIT7           //E置低
+#define EN_SET          P5OUT |=  BIT7           //E置高
+
+#define PSB_CLR         P5OUT &= ~BIT0            //PSB置低，串口方式
+#define PSB_SET         P5OUT |=  BIT0            //PSB置高，并口方式
+
+#define RST_CLR         P5OUT &= ~BIT1            //RST置低
+#define RST_SET         P5OUT |= BIT1             //RST置高
+
+void wd(unsigned char data){
+    RS_SET;
+    RW_CLR;
+    EN_SET;
+    DataPort=data;
+    delay_ms(5);
+    EN_CLR;
+}
+
+void wc(unsigned char data){
+    RS_CLR;
+    RW_CLR;
+    EN_SET;
+    DataPort=data;
+    delay_ms(5);
+    EN_CLR;
+}
+
+void init(void){
+    P4DIR=0xff;
+    P4OUT=0x00;
+    P5SEL=0x00;
+    P5DIR=0xff;
+    wc(0x38);
+    delay_ms(5);
+    wc(0x08);
+    delay_ms(5);
+    wc(0x01);
+    delay_ms(5);
+    wc(0x06);
+    delay_ms(5);
+    wc(0x0c);
+    delay_ms(5);
+}
+
 void main(){
     WDTCTL = WDTPW | WDTHOLD;   // stop watchdog timer
 
@@ -231,21 +285,30 @@ void main(){
 
     //P6OUT=~R_reg(0x07);
     NRF2401_init();
-
+    init();
     P6DIR=0xff;
     P6OUT=0x00;
     //P6OUT=~R_reg(0x07);
     unsigned char tx_buf[32]="Hello,world,Hell,World!";
-    unsigned char rx_buf[32]=(unsigned char *)malloc(sizeof(unsigned char)*32);
+    unsigned char *rx_buf=(unsigned char *)malloc(sizeof(unsigned char)*32);
     U0RXBUF=0;
-
+    rx_buf[0]='e';
+    unsigned char status1=0;
     while(1){
         //send(tx_buf);
         //delay_ms(22);
         //P6OUT=~
+        status1=0;
                 setRX();
 
-                recv(rx_buf);
+                status1=recv(rx_buf);
+                if(status1){
+                    P6OUT=0xf0;
+                    for(status1=0;status1<16;status1++){
+                        wc(0x80+status1);
+                        wd(rx_buf[status1]);
+                    }
+                }
         delay_ms(20);
         //P6OUT=~R_reg(0x07);
         //P6OUT=~(R_reg(0x07));
