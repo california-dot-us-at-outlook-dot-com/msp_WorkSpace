@@ -121,9 +121,8 @@ void MPU6050_Init()             //初始化过程 ，其实就是写 5个寄存器
 unsigned int readMpu16(unsigned char addr){
     unsigned char i,j;
     i=i2cRead(addr);
-    i=(i<<8);
     j=i2cRead(addr+1);
-    return i+j;
+    return (i<<8)+j;
 }
 
 unsigned char *recvBuf;
@@ -138,7 +137,7 @@ int main(void)
 	P6DIR=0xff;
 	while(1){
 	    P6OUT=~(readMpu16(0x3b)>>8);
-	    delay_ms(500);
+	    //delay_ms(500);
 	}
 	return 0;
 }
