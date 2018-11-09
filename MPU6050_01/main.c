@@ -30,7 +30,19 @@
 #define PWR_MGMT_1  0x6B // 电源管理，典型值：0x00(正常启用) */
 #define WHO_AM_I  0x75 //IIC 地址寄存器(默认数值 0x68，只读) */
 
+#define XGH  0x43 // 存储最近的 X 轴、Y 轴、Z 轴陀螺仪感应器的测量值 */
+#define XGL  0x44
+#define YGH  0x45
+#define YGL  0x46
+#define ZGH  0x47
+#define ZGL  0x48
 
+#define XAH 0x3B  // 存储最近的 X 轴、Y 轴、Z 轴加速度感应器的测量值 */
+#define XAL 0x3C
+#define YAH 0x3D
+#define YAL 0x3E
+#define ZAH 0x3F
+#define ZAL 0x40
 
 unsigned char i2cRead(unsigned char addr){
     I2CNDAT=0x01;
@@ -39,14 +51,14 @@ unsigned char i2cRead(unsigned char addr){
     I2CTCTL |= I2CSTT+I2CSTP+I2CTRX;
     while((I2CIFG&TXRDYIFG)==0);
     I2CDRB=addr;
-    delay_ms(9);
+    delay_ms(2);
     U0CTL |= MST;
     I2CIFG &= ~ARDYIFG;
     I2CTCTL &= ~I2CTRX;
     I2CTCTL = I2CSTT+I2CSTP;
     while((I2CIFG&RXRDYIFG)==0);
     ctlbyte=I2CDRB;
-    delay_ms(9);
+    delay_ms(2);
     while((I2CTCTL&I2CSTP)==0x02);
     return ctlbyte;
 }
@@ -75,12 +87,12 @@ unsigned char i2cWrite(unsigned char addr,unsigned char dat){
     //P6OUT=~1;
     while((I2CIFG&TXRDYIFG)==0);
     I2CDRB=addr;
-    delay_ms(9);
+    delay_ms(2);
     //I2CNDAT=0x01;
     //P6OUT=~2;
     while((I2CIFG&TXRDYIFG)==0);
     I2CDRB=dat;
-    delay_ms(9);
+    delay_ms(2);
     //P6OUT=~3;
     while((I2CTCTL&I2CSTP)==0x02);
 }
@@ -136,7 +148,7 @@ int main(void)
 	MPU6050_Init();
 	P6DIR=0xff;
 	while(1){
-	    P6OUT=~(readMpu16(0x3b)>>8);
+	    P6OUT=~(readMpu16(ZAH)>>8);
 	    //delay_ms(500);
 	}
 	return 0;
